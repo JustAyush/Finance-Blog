@@ -1,13 +1,14 @@
 import { Heading, Box, SimpleGrid } from "@chakra-ui/react";
 import Post from "components/Post";
 
-const DEMO_POSTS = [1, 2, 3];
+import { Blog as BlogType } from "types/blog";
 
 export interface PostsProps {
   includeHeading: boolean;
+  blogs: BlogType[];
 }
 
-const Posts: React.FC<PostsProps> = ({ includeHeading }) => {
+const Posts: React.FC<PostsProps> = ({ includeHeading, blogs }) => {
   return (
     <Box mb="5">
       {includeHeading && (
@@ -23,8 +24,8 @@ const Posts: React.FC<PostsProps> = ({ includeHeading }) => {
         </Heading>
       )}
       <SimpleGrid columns={[1, 2]} spacing={6}>
-        {DEMO_POSTS.map((_, index: number) => (
-          <Post key={index} />
+        {blogs?.map((blog) => (
+          <Post key={blog.slug} blog={blog} />
         ))}
       </SimpleGrid>
     </Box>

@@ -1,13 +1,18 @@
 import { Heading, Image, Box, Text, AspectRatio } from "@chakra-ui/react";
+import { dateFormatter } from "utils";
 
-export interface PostProps {}
+import { Blog as BlogType } from "types/blog";
 
-const Post: React.FC<PostProps> = () => {
+export interface PostProps {
+  blog: BlogType;
+}
+
+const Post: React.FC<PostProps> = ({ blog }) => {
   return (
     <Box width="full" mb="4">
       <AspectRatio maxW="400px" ratio={16 / 9} mb="6">
         <Image
-          src="https://images.ctfassets.net/s600jj41gsex/6vyEmx8KoXM3JcmI9v86m9/c3447555a39782035d80b3fd446994f0/photo-1510511336377-1a9caa095849.jpeg?w=668&h=534&q=50&fm=webp&fit=scale"
+          src={blog.metadata?.banner_image?.url}
           alt="blog-image"
           borderRadius="sm"
         />
@@ -19,14 +24,14 @@ const Post: React.FC<PostProps> = () => {
         fontWeight="bold"
         mb="2"
       >
-        Corporate Social Responsibility: Tax Perspective
+        {blog.title}
       </Heading>
       <Text fontSize="xs">
         By{" "}
         <Text as="span" fontWeight="semibold">
-          Robus Gauli
+          {blog.metadata?.author?.title}
         </Text>
-        , August 28, 2021
+        , {dateFormatter(blog.metadata?.published_date)}
       </Text>
     </Box>
   );

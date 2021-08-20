@@ -1,19 +1,16 @@
 import { Heading, Box } from "@chakra-ui/react";
 import Category from "components/Category";
 
-const DEMO_CATEGORIES = [
-  "Finance and Accounting",
-  "Income Tax",
-  "Annual Report",
-  "Book Summary",
-  "Random",
-];
-
+import { Category as CategoryType } from "types/category";
 export interface CategoriesProps {
   includeHeading: boolean;
+  categories: CategoryType[];
 }
 
-const Categories: React.FC<CategoriesProps> = ({ includeHeading }) => {
+const Categories: React.FC<CategoriesProps> = ({
+  includeHeading,
+  categories,
+}) => {
   return (
     <Box mt="3">
       {includeHeading && (
@@ -28,8 +25,8 @@ const Categories: React.FC<CategoriesProps> = ({ includeHeading }) => {
           Top Categories
         </Heading>
       )}
-      {DEMO_CATEGORIES.map((category, index: number) => (
-        <Category key={index} text={category} />
+      {categories?.map((category) => (
+        <Category key={category.slug} text={category.title} />
       ))}
     </Box>
   );
