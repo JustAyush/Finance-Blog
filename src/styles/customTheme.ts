@@ -3,18 +3,23 @@ import { theme, extendTheme } from "@chakra-ui/react";
 const customTheme = extendTheme({
   fonts: {
     ...theme.fonts,
-    body: "Lexend, sans-serif",
-    heading: "Lexend, serif",
+    // body: "Open Sans, sans-serif",
+    // heading: "Open Sans, serif",
   },
   colors: {
     ...theme.colors,
-    /** Example */
-    // teal: {
-    //   ...theme.colors.teal,
-    //   700: "#005661",
-    //   500: "#00838e",
-    //   300: "#4fb3be",
-    // },
+    primary: "#0c74db",
+    text: "#415484",
+  },
+  styles: {
+    global: {
+      "html, body": {
+        bg: "white",
+        fontFamily: "Lato",
+        fontSize: "16px",
+        color: "#415484",
+      },
+    },
   },
   components: {
     /** Example */
