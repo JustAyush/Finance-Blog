@@ -1,7 +1,6 @@
-import { Box, Flex, Heading } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 
 import AccessibleLink from "components/AccessibleLink";
-import ThemeToggle from "./ThemeToggle";
 
 const Header = () => {
   return (
@@ -11,10 +10,6 @@ const Header = () => {
           Finance Blog
         </Heading>
       </AccessibleLink>
-
-      <Box marginLeft="auto">
-        <ThemeToggle />
-      </Box>
     </Flex>
   );
 };

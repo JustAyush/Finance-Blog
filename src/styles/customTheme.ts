@@ -8,15 +8,29 @@ const customTheme = extendTheme({
   },
   colors: {
     ...theme.colors,
-    primary: "#0c74db",
-    text: "#415484",
+    primary: {
+      DEFAULT: "#0C74DB",
+      "50": "#D0E6FC",
+      "100": "#B8DAFB",
+      "200": "#88C0F8",
+      "300": "#57A7F6",
+      "400": "#278DF3",
+      "500": "#0C74DB",
+      "600": "#095AAB",
+      "700": "#07417A",
+      "800": "#04274A",
+      "900": "#010E1A",
+    },
+    text: {
+      DEFAULT: "#415484",
+    },
   },
   styles: {
     global: {
       "html, body": {
         bg: "white",
         fontFamily: "Lato",
-        fontSize: "16px",
+        fontSize: "18px",
         color: "#415484",
       },
     },

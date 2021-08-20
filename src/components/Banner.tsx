@@ -3,7 +3,7 @@ import MotionBox from "components/motion/Box";
 
 const Banner: React.FC = () => {
   return (
-    <Flex justifyContent="space-between" alignItems="center" py="12">
+    <Flex justifyContent="space-between" alignItems="center" py="8">
       <Box width={{ base: "100%", md: "60%" }} pr={{ base: 0, md: "16" }}>
         <Heading as="h1" fontSize={["2xl", "3xl"]} mb="4">
           Learn what&apos;s happening in the financial landscape.
