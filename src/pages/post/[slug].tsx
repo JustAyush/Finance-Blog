@@ -55,7 +55,7 @@ const BlogPost: React.FC<BlogPostProps> = ({ blog }) => {
         />
         <hr />
         <Flex mt="6">
-          <AspectRatio minW="12" w="12" h="12" ratio={1 / 8}>
+          <AspectRatio minW="12" w="12" h="12" ratio={1 / 1}>
             <Image
               src={blog.metadata?.author?.metadata?.image?.url}
               alt={blog.metadata?.author?.slug}
