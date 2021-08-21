@@ -1,9 +1,20 @@
 import { Heading, Image, Box, Text, AspectRatio, Flex } from "@chakra-ui/react";
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 import Categories from "wrappers/Categories";
+import { Blog as BlogType } from "types/blog";
+import { dateFormatter, parseHtml } from "utils";
+import bucket from "utils/cosmic";
 
-export interface BlogPostProps {}
+interface BlogPostProps {
+  blog: BlogType;
+}
 
-const BlogPost: React.FC<BlogPostProps> = () => {
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+const BlogPost: React.FC<BlogPostProps> = ({ blog }) => {
   return (
     <Box width="full" mb="4" mt="5">
       <Heading
@@ -13,45 +24,41 @@ const BlogPost: React.FC<BlogPostProps> = () => {
         fontWeight="bold"
         mb="3"
       >
-        Performance of High PE and Low PE Ratio under different Holding Period
-        in NEPSE recently!
+        {blog.title}
       </Heading>
       <Text fontSize="sm">
         By{" "}
         <Text as="span" fontWeight="semibold">
-          Robus Gauli
+          {blog.metadata?.author?.title}
         </Text>
-        , August 28, 2021
+        , {dateFormatter(blog.metadata?.published_date)}
       </Text>
       <AspectRatio w="100%" ratio={16 / 8} my="6">
         <Image
-          src="https://images.ctfassets.net/s600jj41gsex/6vyEmx8KoXM3JcmI9v86m9/c3447555a39782035d80b3fd446994f0/photo-1510511336377-1a9caa095849.jpeg?w=668&h=534&q=50&fm=webp&fit=scale"
+          src={blog.metadata?.banner_image?.url}
           alt="blog-image"
           borderRadius="sm"
         />
       </AspectRatio>
-      <Text>
-        Control over how your web application looks is essential. If you’re
-        struggling, or fighting your way through an adversarial set of commands
-        and HTML configurations just to get your rich text editor to look
-        right... know that it doesn’t have to be that way.
-        <br />
-        <br />
-        Control over how your web application looks is essential. If you’re
-        struggling, or fighting your way through an adversarial set of commands
-        and HTML configurations just to get your rich text editor to look
-        right... know that it doesn’t have to be that way.
-      </Text>
+
+      <Box
+        dangerouslySetInnerHTML={{
+          __html: parseHtml(blog.content),
+        }}
+      />
 
       <Box mt="12">
         <Text fontSize="sm">Posted in:</Text>
-        <Categories includeHeading={false} />
+        <Categories
+          includeHeading={false}
+          categories={blog.metadata?.categories}
+        />
         <hr />
         <Flex mt="6">
           <AspectRatio minW="12" w="12" h="12" ratio={1 / 8}>
             <Image
-              src="https://images.ctfassets.net/s600jj41gsex/2P4AEkP8R7iCxO4eT5voCe/d18aa214c40aa5e1ecff6f6d216c8097/Portrait-TinyTribe-JR100px.png?w=72&h=56&q=50&fm=webp&fit=scale"
-              alt="author"
+              src={blog.metadata?.author?.metadata?.image?.url}
+              alt={blog.metadata?.author?.slug}
               borderRadius="50%"
             />
           </AspectRatio>
@@ -59,20 +66,35 @@ const BlogPost: React.FC<BlogPostProps> = () => {
             <Heading as="h6" fontSize="md" fontWeight="normal" py="3">
               by{" "}
               <Text as="span" fontWeight="bold">
-                Joe Robinson
+                {blog.metadata?.author?.title}
               </Text>
             </Heading>
-            <Text>
-              Technical and creative writer, editor, and a TinyMCE advocate. An
-              enthusiast for teamwork, open source software projects, and
-              baking. Can often be found puzzling over obscure history, cryptic
-              words, and lucid writing.
-            </Text>
+            <Text>{blog.metadata?.author?.metadata?.description}</Text>
           </Box>
         </Flex>
       </Box>
     </Box>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const { slug } = context.params as IParams;
+
+  const blog = await bucket.getObjects({
+    query: {
+      slug,
+    },
+    props: `slug,title,content,
+      metadata.banner_image.url,metadata.published_date,
+      metadata.categories.slug,metadata.categories.title,
+      metadata.author.title,metadata.author.metadata.image.url,metadata.author.metadata.description`,
+  });
+
+  return {
+    props: {
+      blog: blog.objects[0],
+    },
+  };
 };
 
 export default BlogPost;

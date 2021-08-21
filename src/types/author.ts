@@ -4,11 +4,11 @@ export interface Image {
 
 export interface AuthorMetadata {
   image: Image;
+  description: string;
 }
 
 export interface Author {
   slug: string;
   title: string;
-  description: string;
   metadata: AuthorMetadata;
 }

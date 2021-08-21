@@ -26,7 +26,11 @@ const Categories: React.FC<CategoriesProps> = ({
         </Heading>
       )}
       {categories?.map((category) => (
-        <Category key={category.slug} text={category.title} />
+        <Category
+          key={category.slug}
+          text={category.title}
+          slug={category.slug}
+        />
       ))}
     </Box>
   );

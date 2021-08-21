@@ -23,6 +23,7 @@
     "axios": "^0.21.1",
     "cosmicjs": "^4.1.2",
     "framer-motion": "^4.1.17",
+    "isomorphic-dompurify": "^0.15.0",
     "lodash": "^4.17.21",
     "moment": "^2.29.1",
     "next": "^11.1.0",
