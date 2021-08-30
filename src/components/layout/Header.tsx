@@ -7,7 +7,7 @@ const Header = () => {
     <Flex as="header" width="full" align="center">
       <AccessibleLink href="/">
         <Heading as="h1" size="md">
-          Finance Blog
+          Finance Garden
         </Heading>
       </AccessibleLink>
     </Flex>
