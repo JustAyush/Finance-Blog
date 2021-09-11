@@ -3,7 +3,7 @@ import Head from "next/head";
 const Meta = () => {
   return (
     <Head>
-      <title>Finance Blog</title>
+      <title>Finance Garden</title>
     </Head>
   );
 };

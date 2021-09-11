@@ -1,17 +1,20 @@
 import { Flex, Heading, Image, Box, Text } from "@chakra-ui/react";
 import MotionBox from "components/motion/Box";
+interface Props {
+  title: string;
+  subtitle: string;
+}
 
-const Banner: React.FC = () => {
+const Banner: React.FC<Props> = (props) => {
+  const { title, subtitle } = props;
+
   return (
     <Flex justifyContent="space-between" alignItems="center" py="8">
       <Box width={{ base: "100%", md: "60%" }} pr={{ base: 0, md: "16" }}>
         <Heading as="h1" fontSize={["2xl", "3xl"]} mb="4">
-          Learn what&apos;s happening in the financial landscape.
+          {title}
         </Heading>
-        <Text>
-          We share stuffs about Nepal Stock Market, book summaries and other
-          bited-size educational bits about finance.
-        </Text>
+        <Text>{subtitle}</Text>
       </Box>
       <MotionBox
         animate={{ y: 10, scale: 0.99 }}
